@@ -1,6 +1,6 @@
 # Deckbuilder Framework
 
-This system implements card and deck mechanics in Godot Engine. It features drawing, shuffling, and many more standard card behaviors and interactions. A standard deck of playing cards comes packaged with this plugin, but it can really be used for any time of cards. 
+This system implements card and deck mechanics in Godot Engine. It features drawing, shuffling, and many more standard card behaviors and interactions. A standard deck of playing cards comes packaged with this plugin, but it can really be used for any kind of card based game.
 
 ## Table of Contents
 - [Quick Example](#quick-example)

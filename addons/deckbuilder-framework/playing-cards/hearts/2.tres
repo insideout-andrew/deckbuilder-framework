@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="PlayingCardData" load_steps=5 format=3 uid="uid://dlimfn378olnj"]
+
+[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="1_mo7cn"]
+[ext_resource type="Script" path="res://addons/deckbuilder-framework/playing-cards/playing_card_data.gd" id="1_pbuly"]
+[ext_resource type="Texture2D" uid="uid://c4eyhulofxpog" path="res://addons/deckbuilder-framework/playing-cards/assets/hearts/card_hearts_02.png" id="2_ixr08"]
+[ext_resource type="PackedScene" uid="uid://c46yrc0608agj" path="res://addons/deckbuilder-framework/playing-cards/playing_card.tscn" id="2_npp2l"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_pbuly")
+suit = 3
+value = 2
+back_image = ExtResource("1_mo7cn")
+front_image = ExtResource("2_ixr08")
+flipped = false
+card_scene = ExtResource("2_npp2l")

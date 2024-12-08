@@ -1,0 +1,123 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8funai6d30gl"]
+
+[ext_resource type="Script" path="res://simple-example/simple-example.gd" id="1_5v5ii"]
+[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="2_2tmgt"]
+[ext_resource type="Script" path="res://addons/deckbuilder-framework/deck.gd" id="2_ynoqc"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ia0he"]
+
+[sub_resource type="Curve" id="Curve_cwe2b"]
+min_value = -10.0
+max_value = 10.0
+_data = [Vector2(0, -10), 0.0, 20.0, 0, 1, Vector2(1, 10), 20.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_hu1xe"]
+max_value = 25.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 25), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Example" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5v5ii")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.169245, 0.169245, 0.169245, 1)
+layout_mode = 0
+offset_left = 196.0
+offset_top = 405.0
+offset_right = 1214.0
+offset_bottom = 523.0
+texture = SubResource("PlaceholderTexture2D_ia0he")
+
+[node name="Backgrounds" type="Control" parent="."]
+modulate = Color(0.226707, 0.226707, 0.226707, 1)
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 187.0
+offset_right = 278.0
+offset_bottom = 307.0
+texture = ExtResource("2_2tmgt")
+
+[node name="TextureRect2" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 1128.0
+offset_top = 187.0
+offset_right = 1212.0
+offset_bottom = 307.0
+texture = ExtResource("2_2tmgt")
+
+[node name="Draw" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 194.0
+offset_top = 187.0
+offset_right = 278.0
+offset_bottom = 307.0
+script = ExtResource("2_ynoqc")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="Hand" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 197.0
+offset_top = 406.0
+offset_right = 1213.0
+offset_bottom = 522.0
+script = ExtResource("2_ynoqc")
+x_spread = 60.0
+drag_behavior = 1
+stack_behavior = 1
+hand_rotation_curve = SubResource("Curve_cwe2b")
+hand_vertical_curve = SubResource("Curve_hu1xe")
+
+[node name="Discard" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1128.0
+offset_top = 187.0
+offset_right = 1212.0
+offset_bottom = 307.0
+script = ExtResource("2_ynoqc")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="DrawLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 320.0
+offset_right = 339.0
+offset_bottom = 343.0
+text = "Deck (0)"
+horizontal_alignment = 1
+
+[node name="DiscardLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1072.0
+offset_top = 309.0
+offset_right = 1268.0
+offset_bottom = 332.0
+text = "Discard (0)"
+horizontal_alignment = 1
+
+[node name="HandLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 641.0
+offset_top = 528.0
+offset_right = 768.0
+offset_bottom = 551.0
+text = "Hand (0)"
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_top = 768.0
+offset_right = 91.0
+offset_bottom = 799.0
+text = "Back"

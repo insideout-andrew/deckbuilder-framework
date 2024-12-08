@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PlayingCardData" load_steps=5 format=3 uid="uid://qklx2o1vgqkg"]
+
+[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="1_g04cj"]
+[ext_resource type="PackedScene" uid="uid://c46yrc0608agj" path="res://addons/deckbuilder-framework/playing-cards/playing_card.tscn" id="2_x0cou"]
+[ext_resource type="Texture2D" uid="uid://4jqloccx75oy" path="res://addons/deckbuilder-framework/playing-cards/assets/clubs/card_clubs_J.png" id="3_rv3oh"]
+[ext_resource type="Script" path="res://addons/deckbuilder-framework/playing-cards/playing_card_data.gd" id="4_sbwgv"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("4_sbwgv")
+suit = 1
+value = 11
+back_image = ExtResource("1_g04cj")
+front_image = ExtResource("3_rv3oh")
+card_scene = ExtResource("2_x0cou")

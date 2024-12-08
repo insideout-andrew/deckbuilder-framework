@@ -1,0 +1,318 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgj8sfo8lnw6v"]
+
+[ext_resource type="Script" path="res://solitaire/solitaire.gd" id="1_q1vi5"]
+[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="2_ws7os"]
+[ext_resource type="Script" path="res://addons/deckbuilder-framework/deck.gd" id="3_ax0bq"]
+[ext_resource type="Script" path="res://solitaire/build_deck.gd" id="4_thfoi"]
+[ext_resource type="Script" path="res://solitaire/tableau_deck.gd" id="6_l70yo"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_k8kfu"]
+
+[node name="Solitaire" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1400.0
+offset_bottom = -800.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q1vi5")
+
+[node name="Backgrounds" type="Control" parent="."]
+modulate = Color(0.151276, 0.151276, 0.151276, 1)
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 64.0
+offset_right = 372.0
+offset_bottom = 184.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 64.0
+offset_right = 500.0
+offset_bottom = 184.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 672.0
+offset_top = 64.0
+offset_right = 756.0
+offset_bottom = 184.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 64.0
+offset_right = 884.0
+offset_bottom = 184.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect5" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 928.0
+offset_top = 64.0
+offset_right = 1012.0
+offset_bottom = 184.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect6" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 1056.0
+offset_top = 64.0
+offset_right = 1140.0
+offset_bottom = 184.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect7" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 220.0
+offset_right = 372.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect8" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 220.0
+offset_right = 500.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect9" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 220.0
+offset_right = 628.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect10" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 672.0
+offset_top = 220.0
+offset_right = 756.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect11" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 800.0
+offset_top = 220.0
+offset_right = 884.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect12" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 928.0
+offset_top = 220.0
+offset_right = 1012.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="TextureRect13" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 1057.0
+offset_top = 220.0
+offset_right = 1141.0
+offset_bottom = 340.0
+texture = ExtResource("2_ws7os")
+stretch_mode = 2
+
+[node name="Decks" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="DrawPile" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 288.0
+offset_top = 64.0
+offset_right = 372.0
+offset_bottom = 184.0
+script = ExtResource("3_ax0bq")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="Discard" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 416.0
+offset_top = 64.0
+offset_right = 500.0
+offset_bottom = 184.0
+script = ExtResource("3_ax0bq")
+x_spread = -0.5
+y_spread = -1.0
+drag_behavior = 2
+
+[node name="BuildDeck1" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 671.0
+offset_top = 64.0
+offset_right = 756.0
+offset_bottom = 184.0
+script = ExtResource("4_thfoi")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="BuildDeck2" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 800.0
+offset_top = 64.0
+offset_right = 884.0
+offset_bottom = 184.0
+script = ExtResource("4_thfoi")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="BuildDeck3" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 928.0
+offset_top = 64.0
+offset_right = 1012.0
+offset_bottom = 184.0
+script = ExtResource("4_thfoi")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="BuildDeck4" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 1056.0
+offset_top = 64.0
+offset_right = 1140.0
+offset_bottom = 184.0
+script = ExtResource("4_thfoi")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="TableauDeck1" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 288.0
+offset_top = 220.0
+offset_right = 372.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="TableauDeck2" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 416.0
+offset_top = 220.0
+offset_right = 500.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="TableauDeck3" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 544.0
+offset_top = 220.0
+offset_right = 628.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="TableauDeck4" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 672.0
+offset_top = 220.0
+offset_right = 756.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="TableauDeck5" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 800.0
+offset_top = 220.0
+offset_right = 884.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="TableauDeck6" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 928.0
+offset_top = 220.0
+offset_right = 1012.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="TableauDeck7" type="Control" parent="Decks"]
+anchors_preset = 0
+offset_left = 1057.0
+offset_top = 220.0
+offset_right = 1141.0
+offset_bottom = 745.0
+script = ExtResource("6_l70yo")
+y_spread = 30.0
+drag_behavior = 3
+
+[node name="Buttons" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="RefreshButton" type="Button" parent="Buttons"]
+visible = false
+layout_mode = 0
+offset_left = 290.0
+offset_top = 66.0
+offset_right = 370.0
+offset_bottom = 182.0
+text = "Refresh"
+
+[node name="BackButton" type="Button" parent="Buttons"]
+layout_mode = 0
+offset_top = 768.0
+offset_right = 80.0
+offset_bottom = 799.0
+text = "Back"
+
+[node name="WinScreen" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="WinScreen"]
+modulate = Color(0.288167, 0.0201834, 0.119681, 1)
+layout_mode = 0
+offset_right = 1400.0
+offset_bottom = 800.0
+texture = SubResource("PlaceholderTexture2D_k8kfu")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="WinScreen"]
+layout_mode = 2
+offset_left = 575.0
+offset_top = 400.0
+offset_right = 824.0
+offset_bottom = 424.0
+bbcode_enabled = true
+text = "[center][wave]You Win!"

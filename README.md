@@ -126,6 +126,7 @@ At first listening for signals on the deck instead of on the card may seem unint
 - `max_stack_size`: int – Maximum number of cards displayed in a stacked
 - `drag_behavior`: DRAG_BEHAVIOR – Dragging policy (NONE, ALL, TOP, CUSTOM).
 - `stack_behavior`: STACK_BEHAVIOR – Stacking policy (EXACT, CENTERED).
+- `card_drag_over_card_behavior`: CARD_DRAG_OVER_CARD_BEHAVIOR – Stacking policy (NONE, SWAP_POSITIONS).
 - `hand_rotation_curve`: Curve – Rotation curve for hands. This works best as a 2-point linear rise from -X to +X
 - `hand_vertical_curve`: Curve – Vertical curve for hands. This works best as a 3-point ease in/out from 0 to X to 0
 
@@ -182,8 +183,7 @@ Determines whether the deck is currently holding a card
 ```
 if deck.is_holding_a_card():
 	print(deck.get_held_card())
----
-
+```
 
 `get_held_card() -> Card`
 
@@ -191,7 +191,7 @@ Returns the held card if there is one
 
 ```
 print(deck.get_held_card())
----
+```
 
 ## Todo list/minor bugs:
 - Card `target_rotation`s don't seem to be respecting the `pivot_offset`, something from `target_position` is messing it up. this is causing inconsistent roations in curved hands

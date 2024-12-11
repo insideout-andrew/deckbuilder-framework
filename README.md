@@ -67,8 +67,7 @@ enum SUITS {
 
 @export var suit : SUITS
 @export var value : int
-@export var back_image : Resource
-@export var front_image : Resource
+@export var texture : Resource
 ```
 
 After setting this up you create your card resources as needed (`spades-a.tres`, `spades-2.tres`, `spades-3.tres`, etc.).
@@ -98,12 +97,10 @@ Manually update the card display. This is automatically called on `_ready` but y
 # playing_card.tscn
 class_name PlayingCard extends Card
 
-@onready var backface: TextureRect = $Backface
-@onready var frontface: TextureRect = $Frontface
+@onready var texture_rect: TextureRect = $TextureRect
 
 func update_display():
-	backface.texture = card_data.back_image
-	frontface.texture = card_data.front_image
+	texture_rect.texture = card_data.texture
 
 ```
 
@@ -119,9 +116,9 @@ At first listening for signals on the deck instead of on the card may seem unint
 - `top_card_clicked(card : Card)`
 - `card_clicked(card : Card)`
 - `card_picked_up(card : Card)`
-- `card_dropped(card : Card)`
-- `card_dropped_on_deck(card : Card, from_deck : Deck)`
+- `card_dropped(card : Card, dropped_on_deck : Deck)`
 - `cards_updated`
+- `start_card_drag(card : Card)`
 
 #### Exported Variables
 - `x_spread`: float – Horizontal spread of cards in the deck
@@ -178,4 +175,24 @@ func custom_can_card_be_dragged(card: Card) -> bool:
 	return card.card_data.some_value >= 3
 ```
 
+`is_holding_a_card() -> bool`
+
+Determines whether the deck is currently holding a card
+
+```
+if deck.is_holding_a_card():
+	print(deck.get_held_card())
 ---
+
+
+`get_held_card() -> Card`
+
+Returns the held card if there is one
+
+```
+print(deck.get_held_card())
+---
+
+## Todo list/minor bugs:
+- Card `target_rotation`s don't seem to be respecting the `pivot_offset`, something from `target_position` is messing it up. this is causing inconsistent roations in curved hands
+- When a card is dropped it runs a mouse_exited on the card even if the mouse didn't actually exit. this is because mouse enter/exit doesn't trigger from dropping automatically (without mouse movement) so we need to call them manually, anyway they should probably be made to work in a more precise manner

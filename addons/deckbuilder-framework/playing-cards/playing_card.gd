@@ -1,18 +1,17 @@
 class_name PlayingCard extends Card
 
-@onready var backface: TextureRect = $Backface
-@onready var frontface: TextureRect = $Frontface
+enum STATES {
+	IDLE,
+	HOVERED,
+	SELECTED
+}
 
-var hovered = false
-var flipped = false
+@onready var backface: TextureRect = $Textures/Backface
+@onready var frontface: TextureRect = $Textures/Frontface
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func set_hovered(val : bool):
-	if hovered != val:
-		if val:
-			target_position.y -= 15
-		else:
-			target_position.y += 15
-		hovered = val
+var flipped := false
+var last_animation_played
 
 func set_flipped(val : bool):
 	flipped = val
@@ -28,3 +27,8 @@ func update_display():
 		else:
 			backface.hide()
 			frontface.show()
+
+func play_animation(name : String) -> void:
+	if last_animation_played != name: 
+		last_animation_played = name
+		animation_player.play(name)

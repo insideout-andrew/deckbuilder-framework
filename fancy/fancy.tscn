@@ -1,30 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8funai6d30gl"]
+[gd_scene load_steps=7 format=3 uid="uid://by6nvua5b78dq"]
 
-[ext_resource type="Script" path="res://simple-example/simple-example.gd" id="1_5v5ii"]
-[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="2_2tmgt"]
-[ext_resource type="Script" path="res://addons/deckbuilder-framework/deck.gd" id="2_ynoqc"]
+[ext_resource type="Script" path="res://fancy/fancy.gd" id="1_dflma"]
+[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="2_n0bpp"]
+[ext_resource type="Script" path="res://addons/deckbuilder-framework/deck.gd" id="3_h1847"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ia0he"]
 
 [sub_resource type="Curve" id="Curve_cwe2b"]
-min_value = -10.0
-max_value = 10.0
-_data = [Vector2(0, -10), 0.0, 20.0, 0, 1, Vector2(1, 10), 20.0, 0.0, 1, 0]
+min_value = -15.0
+max_value = 15.0
+_data = [Vector2(0, -15), 0.0, 30.0, 0, 1, Vector2(1, 15), 30.0, 0.0, 1, 0]
 point_count = 2
 
 [sub_resource type="Curve" id="Curve_hu1xe"]
 max_value = 25.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 25), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 125.0, 0, 0, Vector2(0.497608, 25), 0.0, 0.0, 0, 0, Vector2(1, 0), -125.0, 0.0, 0, 0]
 point_count = 3
 
-[node name="Example" type="Control"]
+[node name="Fancy" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5v5ii")
+script = ExtResource("1_dflma")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.169245, 0.169245, 0.169245, 1)
@@ -45,7 +45,7 @@ offset_left = 194.0
 offset_top = 187.0
 offset_right = 278.0
 offset_bottom = 307.0
-texture = ExtResource("2_2tmgt")
+texture = ExtResource("2_n0bpp")
 
 [node name="TextureRect2" type="TextureRect" parent="Backgrounds"]
 layout_mode = 0
@@ -53,7 +53,7 @@ offset_left = 1128.0
 offset_top = 187.0
 offset_right = 1212.0
 offset_bottom = 307.0
-texture = ExtResource("2_2tmgt")
+texture = ExtResource("2_n0bpp")
 
 [node name="Draw" type="Control" parent="."]
 anchors_preset = 0
@@ -61,7 +61,7 @@ offset_left = 194.0
 offset_top = 187.0
 offset_right = 278.0
 offset_bottom = 307.0
-script = ExtResource("2_ynoqc")
+script = ExtResource("3_h1847")
 x_spread = -0.5
 y_spread = -1.0
 
@@ -71,10 +71,11 @@ offset_left = 197.0
 offset_top = 406.0
 offset_right = 1213.0
 offset_bottom = 522.0
-script = ExtResource("2_ynoqc")
+script = ExtResource("3_h1847")
 x_spread = 60.0
 drag_behavior = 1
 stack_behavior = 1
+card_drag_over_card_behavior = 1
 hand_rotation_curve = SubResource("Curve_cwe2b")
 hand_vertical_curve = SubResource("Curve_hu1xe")
 
@@ -84,7 +85,7 @@ offset_left = 1128.0
 offset_top = 187.0
 offset_right = 1212.0
 offset_bottom = 307.0
-script = ExtResource("2_ynoqc")
+script = ExtResource("3_h1847")
 x_spread = -0.5
 y_spread = -1.0
 

@@ -68,77 +68,47 @@ var all_cards = [
 @onready var back_button: Button = $BackButton
 
 func _ready() -> void:
-	randomize()
-	
+	_connect_signals()
+	_create_cards()
+	_shuffle_and_draw_starting_hand()
+
+func _connect_signals():
 	back_button.connect('pressed', func(): get_tree().change_scene_to_file("res://example.tscn"))
-
-	# handle deck interactions
 	draw_deck.connect('top_card_clicked', _draw_pile_clicked)
-	draw_deck.connect('cards_updated', _on_deck_updated)
-	
-	# handle hand interactions
-	hand.connect('mouse_entered_card', _mouse_entered_card_in_hand)
-	hand.connect('mouse_exited_card', _mouse_exited_card_in_hand)
-	hand.connect('cards_updated', _on_hand_updated)
-	hand.connect('card_picked_up', _on_card_picked_up_from_hand)
 	hand.connect('card_dropped', _on_card_dropped_from_hand)
-	
-	# handle discard interactions
 	discard.connect('top_card_clicked', _dicard_clicked)
-	discard.connect('cards_updated', _on_discard_updated)
-	discard.connect('card_dropped_on_deck', _on_card_dropped_on_discard)
 
-	# create a the cards and add them to the deck
+func _create_cards():
 	for card_data in all_cards:
 		var card = draw_deck.create_from_card_data(card_data)
 		card.set_flipped(true)
+
+func _shuffle_and_draw_starting_hand():
+	randomize()
 	draw_deck.shuffle()
+	for _i in range(7):
+		var card : PlayingCard = draw_deck.get_top_card()
+		draw_deck.move_card_to_deck(hand, card)
+		card.set_flipped(false)
 	
-
-# draw interactions
+# draw interaction
 # -----------------
-
 func _draw_pile_clicked(card : PlayingCard):
-	if hand.get_child_count() < 7:
+	if hand.get_child_count() < 16:
 		card.set_flipped(false)
 		draw_deck.move_card_to_deck(hand, card)
 
-func _on_deck_updated():
-	draw_label.text = "Deck (%s)" % draw_deck.get_child_count()
-
-
-# hand interactions
+# hand interaction
 # -----------------
-
-func _mouse_entered_card_in_hand(card : PlayingCard):
-	card.set_hovered(true)
-
-func _mouse_exited_card_in_hand(card : PlayingCard):
-	card.set_hovered(false)
-
-func _on_card_picked_up_from_hand(card : PlayingCard):
-	discard_label.text = "Drop to discard (%s)" % discard.get_child_count()
-	card.set_hovered(false)
-
-func _on_card_dropped_from_hand(card : PlayingCard):
-	discard_label.text = "Discard (%s)" % discard.get_child_count()
-	card.set_hovered(false)
-
-func _on_hand_updated():
-	hand_label.text = "Hand (%s)" % hand.get_child_count()
+func _on_card_dropped_from_hand(card : PlayingCard, dropped_on_deck : Deck):
+	if dropped_on_deck == discard:
+		hand.move_card_to_deck(discard, card)
 
 
 # discard interactions
 # -----------------
-
 func _dicard_clicked(_card : PlayingCard):
 	for card in discard.get_children():
 		card.set_flipped(true)
 		discard.move_card_to_deck(draw_deck, card)
 	draw_deck.shuffle()
-
-func _on_discard_updated():
-	discard_label.text = "Discard (%s)" % discard.get_child_count()
-
-func _on_card_dropped_on_discard(card : Card, from_deck : Deck):
-	from_deck.move_card_to_deck(discard, card)

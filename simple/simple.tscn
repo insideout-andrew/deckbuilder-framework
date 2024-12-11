@@ -1,0 +1,84 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8funai6d30gl"]
+
+[ext_resource type="Script" path="res://simple/simple.gd" id="1_aore1"]
+[ext_resource type="Texture2D" uid="uid://dpg01wywd5p27" path="res://addons/deckbuilder-framework/playing-cards/assets/misc/card_back.png" id="2_g5cl1"]
+[ext_resource type="Script" path="res://addons/deckbuilder-framework/deck.gd" id="3_co7tq"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ia0he"]
+
+[node name="Simple" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aore1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.169245, 0.169245, 0.169245, 1)
+layout_mode = 0
+offset_left = 196.0
+offset_top = 405.0
+offset_right = 1214.0
+offset_bottom = 523.0
+texture = SubResource("PlaceholderTexture2D_ia0he")
+
+[node name="Backgrounds" type="Control" parent="."]
+modulate = Color(0.226707, 0.226707, 0.226707, 1)
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 194.0
+offset_top = 187.0
+offset_right = 278.0
+offset_bottom = 307.0
+texture = ExtResource("2_g5cl1")
+
+[node name="TextureRect2" type="TextureRect" parent="Backgrounds"]
+layout_mode = 0
+offset_left = 1128.0
+offset_top = 187.0
+offset_right = 1212.0
+offset_bottom = 307.0
+texture = ExtResource("2_g5cl1")
+
+[node name="Draw" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 194.0
+offset_top = 187.0
+offset_right = 278.0
+offset_bottom = 307.0
+script = ExtResource("3_co7tq")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="Hand" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 197.0
+offset_top = 406.0
+offset_right = 1213.0
+offset_bottom = 522.0
+script = ExtResource("3_co7tq")
+x_spread = 60.0
+drag_behavior = 1
+stack_behavior = 1
+card_drag_over_card_behavior = 1
+
+[node name="Discard" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 1128.0
+offset_top = 187.0
+offset_right = 1212.0
+offset_bottom = 307.0
+script = ExtResource("3_co7tq")
+x_spread = -0.5
+y_spread = -1.0
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 0
+offset_top = 768.0
+offset_right = 91.0
+offset_bottom = 799.0
+text = "Back"

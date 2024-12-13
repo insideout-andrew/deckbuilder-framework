@@ -60,11 +60,6 @@ var all_cards = [
 @onready var draw_deck: Deck = $Draw
 @onready var hand: Deck = $Hand
 @onready var discard: Deck = $Discard
-
-@onready var draw_label: Label = $DrawLabel
-@onready var discard_label: Label = $DiscardLabel
-@onready var hand_label: Label = $HandLabel
-
 @onready var back_button: Button = $BackButton
 
 func _ready() -> void:

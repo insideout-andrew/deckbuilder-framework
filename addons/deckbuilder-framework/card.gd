@@ -25,6 +25,7 @@ func _ready():
 	update_display()
 	connect('gui_input', _on_gui_input)
 
+
 func set_card_data(_card_data):
 	card_data = _card_data
 	if is_ready:

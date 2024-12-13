@@ -123,8 +123,8 @@ func _on_deck_updated():
 func _mouse_entered_card_in_hand(card : PlayingCard):
 	card.play_animation('enter_hover')
 
-func _mouse_exited_card_in_hand(card : PlayingCard, was_being_held : bool):
-	if not was_being_held:
+func _mouse_exited_card_in_hand(card : PlayingCard, was_being_dragged : bool):
+	if not was_being_dragged:
 		card.play_animation('exit_hover')
 
 func _start_drag_card_in_hand(card : PlayingCard):
@@ -136,6 +136,7 @@ func _on_card_picked_up_from_hand(_card : PlayingCard):
 func _on_card_dropped_from_hand(card : PlayingCard, dropped_on_deck : Deck):
 	discard_label.text = "Discard (%s)" % discard.get_child_count()
 	if dropped_on_deck == discard:
+		card.play_animation('RESET')
 		hand.move_card_to_deck(discard, card)
 
 func _on_hand_updated():

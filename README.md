@@ -112,7 +112,7 @@ At first listening for signals on the deck instead of on the card may seem unint
 
 #### Signals
 - `mouse_entered_card(card : Card)`
-- `mouse_exited_card(card : Card)`
+- `mouse_exited_card(card : Card, was_being_dragged : bool)`
 - `top_card_clicked(card : Card)`
 - `card_clicked(card : Card)`
 - `card_picked_up(card : Card)`

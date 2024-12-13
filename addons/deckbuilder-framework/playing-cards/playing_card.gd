@@ -11,7 +11,6 @@ enum STATES {
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var flipped := false
-var last_animation_played
 
 func set_flipped(val : bool):
 	flipped = val
@@ -29,6 +28,4 @@ func update_display():
 			frontface.show()
 
 func play_animation(name : String) -> void:
-	if last_animation_played != name: 
-		last_animation_played = name
-		animation_player.play(name)
+	animation_player.play(name)

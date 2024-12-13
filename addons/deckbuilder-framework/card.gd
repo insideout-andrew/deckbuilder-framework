@@ -40,7 +40,7 @@ func _should_drag():
 	return mouse_down_point != Vector2.ZERO and mouse_down_point != get_global_mouse_position() and is_held
 
 func _process(delta: float) -> void:
-	if auto_position_enabled:
+	if auto_position_enabled and is_ready:
 		if _should_drag():
 			if not is_dragging:
 				var parent = get_parent() as Deck
@@ -50,9 +50,9 @@ func _process(delta: float) -> void:
 			rotation = 0
 			global_position = get_global_mouse_position() - size * 0.5
 		else:
-			var pos = target_position
-			global_position = lerp(global_position, target_position, speed * delta)
 			rotation = lerp_angle(rotation, target_rotation, speed * delta)
+			var center_offset = (size * 0.5).rotated(rotation)
+			global_position = lerp(global_position, (target_position - center_offset) + (size * 0.5), speed * delta)
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:

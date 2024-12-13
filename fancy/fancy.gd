@@ -123,8 +123,9 @@ func _on_deck_updated():
 func _mouse_entered_card_in_hand(card : PlayingCard):
 	card.play_animation('enter_hover')
 
-func _mouse_exited_card_in_hand(card : PlayingCard):
-	card.play_animation('exit_hover')
+func _mouse_exited_card_in_hand(card : PlayingCard, was_being_held : bool):
+	if not was_being_held:
+		card.play_animation('exit_hover')
 
 func _start_drag_card_in_hand(card : PlayingCard):
 	card.play_animation('RESET')

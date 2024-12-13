@@ -18,7 +18,7 @@ enum CARD_DRAG_OVER_CARD_BEHAVIOR {
 }
 
 signal mouse_entered_card(card : Card)
-signal mouse_exited_card(card : Card)
+signal mouse_exited_card(card : Card, was_being_held : bool)
 signal top_card_clicked(card : Card)
 signal card_clicked(card : Card)
 signal card_picked_up(card : Card)
@@ -84,7 +84,7 @@ func _handle_card_picked_up(card : Card):
 func _input(event: InputEvent) -> void:
 	if held_card and event is InputEventMouseButton and not event.is_pressed():
 		emit_signal('card_dropped', held_card, _get_deck_at_position(get_global_mouse_position(), get_tree().root))
-		emit_signal('mouse_exited_card', held_card)
+		emit_signal('mouse_exited_card', held_card, true)
 		_was_dropped_ignore_second_mouse_exit = true
 		held_card.is_held = false
 		held_card.is_dragging = false
@@ -95,7 +95,7 @@ func _input(event: InputEvent) -> void:
 		
 
 func _on_mouse_entered_card(card : Card):
-	if not held_card and get_children().find(card) != -1:
+	if held_card == null and get_children().find(card) != -1:
 		emit_signal('mouse_entered_card', card)
 
 func shuffle():
@@ -111,8 +111,8 @@ func _on_mouse_exited_card(card : Card):
 	if _was_dropped_ignore_second_mouse_exit:
 		_was_dropped_ignore_second_mouse_exit = false
 		return
-	if not held_card and get_children().find(card) != -1:
-		emit_signal('mouse_exited_card', card)
+	if held_card == null and get_children().find(card) != -1:
+		emit_signal('mouse_exited_card', card, false)
 
 func _on_gui_input_card(event, card : Card):
 	if event is InputEventMouseButton and event.pressed and get_children().find(card) != -1:
@@ -128,7 +128,7 @@ func _update_display():
 			card.target_position.y = position.y + max_spread * y_spread
 			card.target_rotation = 0
 			card.update_display()
-		else:			
+		else:
 			if stack_behavior == STACK_BEHAVIOR.CENTERED:
 				var hand_ratio = 0.5
 				if get_child_count() > 1:
@@ -141,7 +141,10 @@ func _update_display():
 				if hand_rotation_curve:
 					card.target_rotation = deg_to_rad(hand_rotation_curve.sample(hand_ratio))
 				if hand_vertical_curve:
-					card.target_position.y -= hand_vertical_curve.sample(hand_ratio)
+					if get_child_count() == 1:
+						card.target_position.y -= hand_vertical_curve.sample(0)
+					else:
+						card.target_position.y -= hand_vertical_curve.sample(hand_ratio)
 				card.update_display()
 			else:
 				var middle_index = get_child_count() / 2.0

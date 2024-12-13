@@ -14,8 +14,11 @@ var auto_position_enabled : bool = true
 func _ready():
 	# the card doesn't connect to any main signals - we just let the deck do that
 	# however, this should probably emit at least a few signals for games? 
+	
+	# ignore all clicks on the card except on the root node
 	propagate_call("set_mouse_filter", [ Control.MOUSE_FILTER_IGNORE ])
 	set_mouse_filter(Control.MOUSE_FILTER_STOP)
+	
 	pivot_offset = size / 2
 	is_ready = true
 	target_position = global_position

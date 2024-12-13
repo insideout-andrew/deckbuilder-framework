@@ -193,6 +193,4 @@ Returns the held card if there is one
 print(deck.get_held_card())
 ```
 
-## Todo list/minor bugs:
-- Card `target_rotation`s don't seem to be respecting the `pivot_offset`, something from `target_position` is messing it up. this is causing inconsistent roations in curved hands
-- When a card is dropped it runs a mouse_exited on the card even if the mouse didn't actually exit. this is because mouse enter/exit doesn't trigger from dropping automatically (without mouse movement) so we need to call them manually, anyway they should probably be made to work in a more precise manner
+Thanks and have fun!

@@ -37,8 +37,9 @@ signal start_card_drag(card : Card)
 
 var cards : Array[Card]
 var held_card : Card
-var return_card_to_index_when_dropped : int
-var held_card_has_been_exited := false # we only want to emit the mouse_entered signal if the held card has been existed, otherwise you drop it, then mouse entered fires immediately when you move
+# when the held card is dropped, the mouse_exit signal won't trigger until the mouse is moved again
+# to get around this quirk, manually trigger a mouse_exit signal, then ignore the natural exit signal that comes when the mouse is moved
+var _was_dropped_ignore_second_mouse_exit = false
 
 func create_from_card_data(card_data : CardData):
 	var card_scene = card_data.card_scene.instantiate()
@@ -76,40 +77,26 @@ func is_holding_a_card():
 # turn off its mouse interactions so it can interact with cards below it 
 # then set its z_index up so it *looks* like it is on top
 func _handle_card_picked_up(card : Card):
-	held_card_has_been_exited = false
 	held_card = card
 	held_card.z_index = 1
 	emit_signal('card_picked_up', card)
-	card.propagate_call("set_mouse_filter", [ Control.MOUSE_FILTER_IGNORE ])
 
 func _input(event: InputEvent) -> void:
 	if held_card and event is InputEventMouseButton and not event.is_pressed():
 		emit_signal('card_dropped', held_card, _get_deck_at_position(get_global_mouse_position(), get_tree().root))
 		emit_signal('mouse_exited_card', held_card)
-		held_card.mouse_filter = Control.MOUSE_FILTER_STOP
+		_was_dropped_ignore_second_mouse_exit = true
 		held_card.is_held = false
 		held_card.is_dragging = false
 		held_card.z_index = 0
 		var temp = held_card
 		held_card = null
+		Input.warp_mouse(get_global_mouse_position())
+		
 
 func _on_mouse_entered_card(card : Card):
-	if card == held_card:
-		return
-	if get_children().find(card) != -1:
-		if held_card and card_drag_over_card_behavior == CARD_DRAG_OVER_CARD_BEHAVIOR.SWAP_POSITIONS:
-			var held_index = held_card.get_index()
-			var hover_index = card.get_index()
-			if held_index < hover_index:
-				for i in range(held_index, hover_index):
-					move_child(get_child(i + 1), i)
-			elif held_index > hover_index:
-				for i in range(held_index, hover_index, -1):
-					move_child(get_child(i - 1), i)
-			move_child(held_card, hover_index)
-			_update_display()
-		if card != held_card:
-			emit_signal('mouse_entered_card', card)
+	if not held_card and get_children().find(card) != -1:
+		emit_signal('mouse_entered_card', card)
 
 func shuffle():
 	var children = get_children()
@@ -121,7 +108,10 @@ func shuffle():
 	_update_display()
 
 func _on_mouse_exited_card(card : Card):
-	if card != held_card and get_children().find(card) != -1:
+	if _was_dropped_ignore_second_mouse_exit:
+		_was_dropped_ignore_second_mouse_exit = false
+		return
+	if not held_card and get_children().find(card) != -1:
 		emit_signal('mouse_exited_card', card)
 
 func _on_gui_input_card(event, card : Card):
@@ -188,3 +178,17 @@ func _get_deck_at_position(global_pos: Vector2, node: Node) -> Deck:
 			if found:
 				return found
 	return null
+
+func _process(_delta: float) -> void:
+	if held_card and card_drag_over_card_behavior == CARD_DRAG_OVER_CARD_BEHAVIOR.SWAP_POSITIONS:
+		var held_card_index = held_card.get_index()
+		if held_card_index > 0:
+			var prev_card = get_child(held_card_index - 1)
+			if prev_card.global_position.x > held_card.global_position.x:
+				move_child(prev_card, held_card_index)
+				_update_display()
+		if held_card_index < get_child_count() - 1:
+			var next_card = get_child(held_card_index + 1)
+			if next_card.global_position.x < held_card.global_position.x:
+				move_child(next_card, held_card_index)
+				_update_display()

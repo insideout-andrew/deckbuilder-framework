@@ -96,7 +96,6 @@ func _connect_signals():
 	# handle hand interactions
 	hand.connect('mouse_entered_card', _mouse_entered_card_in_hand)
 	hand.connect('mouse_exited_card', _mouse_exited_card_in_hand)
-	hand.connect('card_clicked', _clicked_card_in_hand)
 	hand.connect('start_card_drag', _start_drag_card_in_hand)
 	hand.connect('cards_updated', _on_hand_updated)
 	hand.connect('card_picked_up', _on_card_picked_up_from_hand)
@@ -122,14 +121,10 @@ func _on_deck_updated():
 # -----------------
 
 func _mouse_entered_card_in_hand(card : PlayingCard):
-	if not hand.is_holding_a_card():
-		card.play_animation('enter_hover')
+	card.play_animation('enter_hover')
 
 func _mouse_exited_card_in_hand(card : PlayingCard):
 	card.play_animation('exit_hover')
-
-func _clicked_card_in_hand(card : PlayingCard):
-	card.play_animation('enter_hover')
 
 func _start_drag_card_in_hand(card : PlayingCard):
 	card.play_animation('RESET')

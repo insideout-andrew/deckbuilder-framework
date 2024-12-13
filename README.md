@@ -111,14 +111,16 @@ A control node that manages a stack of cards. This is the main node your game wi
 At first listening for signals on the deck instead of on the card may seem unintuitive but this allows you to easily manage different interactions on cards on different decks. For example, your game shouldn't necessarily listen for a mouse entered signal on an individual card scene, it should listen for the deck signaling that a card within it has had the mouse enter it. 
 
 #### Signals
-- `mouse_entered_card(card : Card)`
-- `mouse_exited_card(card : Card, was_being_dragged : bool)`
-- `top_card_clicked(card : Card)`
-- `card_clicked(card : Card)`
-- `card_picked_up(card : Card)`
-- `card_dropped(card : Card, dropped_on_deck : Deck)`
-- `cards_updated`
-- `start_card_drag(card : Card)`
+- `mouse_entered_card(card : Card)` - fires when the mouse enters the card
+- `mouse_exited_card(card : Card)` - fires when the mouse exits the card
+- `top_card_clicked(card : Card)` - fires when the top card of a deck is clicked
+- `card_clicked(card : Card)` - fires when any card in the deck is clicked
+- `card_picked_up(card : Card)` - fires when there is a mouse down event on a draggable card
+- `start_card_drag(card : Card)` - fires when a card starts being dragged
+- `card_dropped(card : Card, dropped_on_deck : Deck)`  - fires when there is a mouse up event on a draggable card
+- `cards_updated` - fires when cards enter or leave the deck
+
+There is a quirk with the `mouse_exited_card` signal. It doesn't fire until the mouse takes an action. So for example, it doesn't necessarily fire immediately after `card_dropped`. The user must make a mouse action after dropping to trigger this exit event.
 
 #### Exported Variables
 - `x_spread`: float – Horizontal spread of cards in the deck

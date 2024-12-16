@@ -43,7 +43,7 @@ func _ready():
 2. Create a `Card` scene that implements your `CardData`
 3. Add a `Deck` into your game
 4. Create cards in the deck using the `create_from_card_data` method
-5. Connect the signals decks emit and use them make mange your game
+5. Connect the signals decks emit and use them make your game
 
 <a href="#computed"></a>
 ## Components
